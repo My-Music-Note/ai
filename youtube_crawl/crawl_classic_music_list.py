@@ -15,6 +15,8 @@ classic_music_youtube = [
 { "periods" : "medieval",    "url" : "https://www.youtube.com/playlist?list=PLrn-3oc_hSrwHfAzBj9Zr-2lEOo7Lxnsj", "num" : 648},
 { "periods" : "modernism",   "url" : "https://www.youtube.com/playlist?list=PLrn-3oc_hSry5JkAW8Uz2Wq4ATg6MJ6OI", "num" : 545} ]
 
+idx = 0
+
 for playlist in classic_music_youtube:
     periods = playlist['periods']
     url = playlist['url']
@@ -35,13 +37,10 @@ for playlist in classic_music_youtube:
         youtube_full_url = tmp.get_attribute("href")
         youtube_id = youtube_full_url.split('watch?v=')[-1].split('&list=')[0]
 
-        # print(" ======= Index :", i-1)
-        # print("Full url :", youtube_full_url)
-        # print("Youtube ID :", youtube_id)
-
-        music_dict["index"].append(i)
+        music_dict["index"].append(idx)
         music_dict["ytid"].append(youtube_id)
         music_dict["periods"].append(periods)
+	idx += 1
 
 df = pd.DataFrame.from_dict(music_dict, orient='columns')
 df.to_csv('classical_music_ytid.csv', index=False)
